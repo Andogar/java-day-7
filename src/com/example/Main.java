@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose one of these months:");
 
@@ -15,8 +15,15 @@ public class Main {
             System.out.println(name.getEnglishName());
         }
 
-        String userInput = scanner.next();
-        Month userInputMonth = Month.valueOf(userInput.toUpperCase());
+        String userInput = scanner.next().toUpperCase();
+
+        try {
+            Month.valueOf(userInput);
+        } catch (Exception ex) {
+            throw new Exception("That is not a valid month.");
+        }
+
+        Month userInputMonth = Month.valueOf(userInput);
 
         ArrayList<String> monthList = new ArrayList<>();
 
@@ -47,8 +54,7 @@ public class Main {
                 monthList.add(Month.DECEMBER.getEnglishName());
                 break;
             default:
-                System.out.println("That is not a valid month");
-                break;
+                throw new Exception("Month does not exist here.");
 
 //            For each loop example of answer:
 //
@@ -59,6 +65,7 @@ public class Main {
 //            }
 
         }
+
         System.out.println(monthList);
     }
 }
